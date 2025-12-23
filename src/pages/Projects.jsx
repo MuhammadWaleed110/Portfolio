@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, X, ArrowRight, Users, TrendingUp, Zap, Shield } from 'lucide-react';
+import { ExternalLink, Github, X, ArrowRight, Users, TrendingUp, Zap, Shield, Heart } from 'lucide-react';
 import Images from '../Constants/Images';
 
 const Projects = ({ scrollToSection }) => {
@@ -11,23 +11,23 @@ const Projects = ({ scrollToSection }) => {
     {
       id: 1,
       title: 'BloodConnect Pakistan',
-      category: 'Full Stack',
+      category: 'Mern Stack',
       image: Images.blood_connect,
       description: 'Digital blood donation platform connecting donors with recipients across Pakistan.',
-      longDescription: 'A scalable MERN stack platform that connects blood donors with recipients in real-time across Pakistan. Features include donor availability tracking, secure authentication, responsive UI, and efficient backend logic to facilitate life-saving connections.',
+      longDescription: 'A comprehensive MERN stack blood donation platform that connects donors with recipients in real-time across Pakistan. Features include donor availability tracking, secure authentication, responsive UI, and efficient backend logic to facilitate life-saving connections. The platform includes donor registration, blood request management, and real-time notifications.',
       impact: 'Platform serves 5,000+ monthly users with 95% success rate in donor-recipient matching',
-      technologies: ['React.js', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB', 'JWT Auth', 'Socket.io'],
+      technologies: ['React.js', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB', 'JWT Auth', 'Socket.io', 'Render'],
       features: ['Real-time donor matching', 'Secure authentication', 'Responsive design', 'Admin dashboard', 'Notification system'],
       github: 'https://github.com/MuhammadWaleed110',
-      live: '#',
+      live: 'https://bloodconnect-pakistan-frontend.onrender.com/',
       featured: true,
       color: 'from-red-500/20 to-red-600/20',
-      icon: Users
+      icon: Heart
     },
     {
       id: 2,
       title: 'Airport Parking System',
-      category: 'Full Stack',
+      category: 'Mern Stack',
       image: Images.airport_Parking,
       description: 'Real-time parking management system with secure booking and availability tracking.',
       longDescription: 'A comprehensive MERN stack airport parking service system with secure booking, real-time availability tracking, and intuitive interface. Designed for fast user interaction and efficient parking management.',
@@ -58,7 +58,7 @@ const Projects = ({ scrollToSection }) => {
     },
   ];
 
-  const categories = ['All', 'Full Stack', 'Frontend'];
+  const categories = ['All', 'Mern Stack', 'Frontend'];
 
   const filteredProjects = filter === 'All' 
     ? projects 
@@ -87,7 +87,7 @@ const Projects = ({ scrollToSection }) => {
           </h2>
           
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Showcasing my expertise in building modern web applications
+            Showcasing my expertise in building modern web applications with live demos
           </p>
         </motion.div>
 
@@ -139,6 +139,16 @@ const Projects = ({ scrollToSection }) => {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
                       
+                      {/* Live Demo Badge for BloodConnect */}
+                      {project.id === 1 && (
+                        <div className="absolute top-4 left-4">
+                          <span className="px-3 py-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-medium rounded-full flex items-center gap-1 animate-pulse">
+                            <Zap className="h-3 w-3" />
+                            Live Demo
+                          </span>
+                        </div>
+                      )}
+                      
                       {/* Category Badge */}
                       <div className="absolute top-4 right-4">
                         <span className="px-3 py-1 bg-gradient-to-r from-blue-500 to-cyan-400 text-white text-xs font-medium rounded-full">
@@ -188,16 +198,18 @@ const Projects = ({ scrollToSection }) => {
                             rel="noopener noreferrer"
                             className="p-2 bg-slate-800/50 rounded-lg border border-slate-700 text-gray-300 hover:text-white hover:border-blue-500 hover:bg-blue-500/10 transition-all duration-300"
                             title="View Source Code"
+                            onClick={(e) => e.stopPropagation()}
                           >
                             <Github className="h-4 w-4" />
                           </a>
-                          {project.live !== '#' && (
+                          {project.live && (
                             <a
                               href={project.live}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="p-2 bg-slate-800/50 rounded-lg border border-slate-700 text-gray-300 hover:text-white hover:border-blue-500 hover:bg-blue-500/10 transition-all duration-300"
                               title="Live Demo"
+                              onClick={(e) => e.stopPropagation()}
                             >
                               <ExternalLink className="h-4 w-4" />
                             </a>
@@ -264,6 +276,21 @@ const Projects = ({ scrollToSection }) => {
                 >
                   <X className="h-6 w-6" />
                 </button>
+                
+                {/* Live Demo Badge */}
+                {selectedProject.live && selectedProject.live !== '#' && (
+                  <div className="absolute top-4 left-4">
+                    <a
+                      href={selectedProject.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-400 text-white text-sm font-medium rounded-full hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300"
+                    >
+                      <Zap className="h-4 w-4" />
+                      Visit Live Demo
+                    </a>
+                  </div>
+                )}
               </div>
               
               {/* Modal Content */}
@@ -284,9 +311,9 @@ const Projects = ({ scrollToSection }) => {
                       className="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-lg transition-colors"
                     >
                       <Github className="h-5 w-5" />
-                      <span>Code</span>
+                      <span>View Code</span>
                     </a>
-                    {selectedProject.live !== '#' && (
+                    {selectedProject.live && selectedProject.live !== '#' && (
                       <a
                         href={selectedProject.live}
                         target="_blank"
@@ -306,22 +333,72 @@ const Projects = ({ scrollToSection }) => {
                   <p className="text-gray-300 text-lg leading-relaxed">
                     {selectedProject.longDescription}
                   </p>
+                  
+                  {/* Impact Statement */}
+                  {selectedProject.impact && (
+                    <div className="mt-6 p-4 bg-gradient-to-r from-blue-500/10 to-cyan-400/10 rounded-lg border border-blue-500/20">
+                      <div className="flex items-center space-x-3">
+                        <div className="h-10 w-10 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+                          <TrendingUp className="h-5 w-5 text-white" />
+                        </div>
+                        <div>
+                          <p className="text-white font-medium">Impact:</p>
+                          <p className="text-gray-300 text-sm">{selectedProject.impact}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 
-                {/* Technologies */}
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-4">Technologies Used</h3>
-                  <div className="flex flex-wrap gap-3">
-                    {selectedProject.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-4 py-2 bg-gradient-to-r from-blue-500/10 to-cyan-400/10 text-blue-400 rounded-lg font-medium border border-blue-500/20"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                <div className="grid md:grid-cols-2 gap-8">
+                  {/* Technologies */}
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-4">Technologies Used</h3>
+                    <div className="flex flex-wrap gap-3">
+                      {selectedProject.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-4 py-2 bg-gradient-to-r from-blue-500/10 to-cyan-400/10 text-blue-400 rounded-lg font-medium border border-blue-500/20"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Key Features */}
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-4">Key Features</h3>
+                    <ul className="space-y-2">
+                      {selectedProject.features.map((feature, index) => (
+                        <li key={index} className="flex items-start">
+                          <div className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 mt-2 mr-3 flex-shrink-0" />
+                          <span className="text-gray-300">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
+                
+                {/* Live Demo Special Note for BloodConnect */}
+                {selectedProject.id === 1 && (
+                  <div className="mt-8 p-4 bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-lg border border-red-500/20">
+                    <div className="flex items-center space-x-3">
+                      <div className="h-10 w-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg flex items-center justify-center">
+                        <Heart className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-white font-medium">Live Demo Available!</p>
+                        <p className="text-gray-300 text-sm">
+                          This project is fully deployed and functional. Click "Live Demo" to experience the blood donation platform in action.
+                        </p>
+                        <p className="text-gray-400 text-xs mt-1">
+                          Note: The backend may take a moment to wake up on first visit (Render free tier).
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>
